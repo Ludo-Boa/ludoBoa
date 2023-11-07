@@ -1,0 +1,10 @@
+.envs
+.venv
+.vscode
+requirements.txt
+media
+static/file
+static/img
+cinema
+_config/settings.py
+_config/urls.py

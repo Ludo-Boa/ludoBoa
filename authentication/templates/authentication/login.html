@@ -1,0 +1,49 @@
+{% extends 'cine_base.html' %}
+{% load static %}
+{% block cineContent %}
+
+<div class="sign section--bg" data-bg="img/section/section.jpg">
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-12">
+                
+                    
+                
+                <div class="sign__content">
+                    
+                    <!-- authorization form -->
+                    <form action="{% url 'login' %}" method="POST" class="sign__form">
+                        {% csrf_token %}
+                        
+                            <h1 class="text-white navbar-brand"><span>LOG</span>IN</h1>
+                        
+
+                        <div class="sign__group">
+                            <input type="text" class="sign__input" name="username" placeholder="Identifiant">
+                        </div>
+
+                        <div class="sign__group">
+                            <input type="password" class="sign__input" name="password" placeholder="Mot de passe">
+                        </div>
+
+                        <button class="sign__btn" type="submit">Connexion</button>
+                        {% if message %}
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                            <div>
+                                {{ message }}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                    </form>
+                    <!-- end authorization form -->
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock cineContent %}
