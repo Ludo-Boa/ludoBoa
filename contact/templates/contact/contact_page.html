@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailsettings_tags crispy_forms_tags %}
+
+{% block body_class %}template-formpage{% endblock %}
+
+{% block content %}
+{% get_settings %}
+{% image settings.base.ImageDefault.image original as img_default %}
+{% image page.hero_image original as hero_image %}
+<section class="hero-banner px-4 py-5 mb-5 text-center position-relative">
+	<div class="hero-banner-img position-absolute top-0 bottom-0 start-0 end-0" style="background-image:url({% if page.hero_image %} {{ hero_image.url }} {% else %} {{ img_default.url }} {% endif %});" alt=""></div>
+	<div class="bg-black position-absolute top-0 bottom-0 start-0 end-0" style="--bs-bg-opacity: .7;"></div>
+	<div class="text-white position-relative my-5 py-5" data-aos="fade">
+        <div class="col-lg-6 mx-auto">
+            <h1 class="page-title display-1 text-uppercase fw-bold red-first">{{ page.title }}</h1>
+		</div>
+	</div>
+</section>
+
+
+<section id="contact" class="contact-section my-5 py-5">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="row gy-4">
+        <div class="col-lg-6">
+            <form class="page-form-contact" action="{% pageurl page %}" method="POST" class="" data-aos="fade-up" data-aos-delay="300">
+                {% csrf_token %}
+                {% comment %} {{ form|crispy  }} {% endcomment %}
+                {% comment %} {{ form.as_div }} {% endcomment %}
+                <div class="row gy-4">
+                    <div class="col-md-6">
+                        {{ form.nom_prenom|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.email|as_crispy_field }}
+                    </div>
+                    <div class="col-md-12">
+                        {{ form.sujet|as_crispy_field }}
+                    </div>
+                    <div class="col-md-12">
+                        {{ form.message|as_crispy_field }}
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <button type="Submit" class="btn btn-lg btn-danger rounded-pill">Envoyer un message</button>
+                    </div>
+                </div>
+            </form>
+        </div><!-- /.col -->
+        <div class="col-lg-6" >
+            <div class="" data-aos="fade-left" data-aos-delay="600">
+                <div>{{ page.intro|richtext }}</div>
+                <div class="contact-info">
+                    <p><span class="ci-icon"><i class="bi bi-house-fill"></i></span> {{ settings.base.MyProfileSettings.city }}, France</p>
+                    <p><span class="ci-icon"><i class="bi bi-telephone-fill"></i></span> {{ settings.base.MyProfileSettings.phone_number }}</p>
+                    <p><span class="ci-icon"><i class="bi bi-envelope-fill"></i></span> {{ settings.base.MyProfileSettings.contact_mail }}</p>
+                </div>
+                <div class="social-icons margin-top-50">
+                    <h2 class="h5">Retrouvez-moi:</h2>
+                    {% include "includes/social_media.html" %}
+                </div>
+            </div>
+        </div><!-- /.col -->
+
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+</section>
+
+{% endblock content %}

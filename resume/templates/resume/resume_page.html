@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags wagtailsettings_tags %}
+
+{% block body_class %}template-resumepage{% endblock %}
+
+{% block content %}
+{% get_settings %}
+{% image settings.base.ImageDefault.image original as img_default %}
+{% image page.hero_image original as hero_image %}
+<section class="hero-banner px-4 py-5 mb-5 text-center position-relative">
+	<div class="hero-banner-img position-absolute top-0 bottom-0 start-0 end-0" style="background-image:url({% if page.hero_image %} {{ hero_image.url }} {% else %} {{ img_default.url }} {% endif %});" alt=""></div>
+	<div class="bg-black position-absolute top-0 bottom-0 start-0 end-0" style="--bs-bg-opacity: .7;"></div>
+	<div class="text-white position-relative my-5 py-5" data-aos="fade">
+        <div class="col-lg-6 mx-auto">
+            <h1 class="page-title display-1 text-uppercase fw-bold red-first">{{ page.title }}</h1>
+		</div>
+	</div>
+</section>
+
+<!-- Resume Section -->
+<section id="resume" class="resume-section">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <h2 class="resume-title title-block  h3">Résumé</h2>
+            <hr class="hr-heading">
+            <div class="resume-item  pb-0 mb-4">
+                <p class="h5">Ludovic S.B</p>
+                <div class="intro">{{ page.intro|richtext }}</div>
+                {% if page.cv %}
+                <div>
+                    <a href="{{ page.cv.url }}" class="btn btn-primary" target="_blank">Télécharger mon CV</a>
+                </div>
+                {% endif %}
+            </div><!-- End Resume Item -->
+            <hr>
+
+            <h2 class="formation-title title-block h3">Formation</h2>
+            <hr class="hr-heading">
+            {{ page.education }}
+        </div>
+
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+            <h2 class="experience-title title-block h3">Expérience Professionnelle</h2>
+            <hr class="hr-heading">
+            {{ page.experience }}
+        </div><!-- end Col -->
+      </div><!-- end Row -->
+    </div>
+</section>
+{% endblock content %}

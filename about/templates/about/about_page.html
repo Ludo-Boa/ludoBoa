@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags skills_tags tool_tags interest_tags wagtailsettings_tags %}
+
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block content %}
+{% get_settings %}
+{% image settings.base.ImageDefault.image original as img_default %}
+{% image page.hero_image original as hero_image %}
+<section class="hero-banner px-4 py-5 mb-5 text-center position-relative">
+	<div class="hero-banner-img position-absolute top-0 bottom-0 start-0 end-0" style="background-image:url({% if page.hero_image %} {{ hero_image.url }} {% else %} {{ img_default.url }} {% endif %});" alt=""></div>
+	<div class="bg-black position-absolute top-0 bottom-0 start-0 end-0" style="--bs-bg-opacity: .7;"></div>
+	<div class="text-white position-relative my-5 py-5" data-aos="fade">
+    <div class="col-lg-6 mx-auto">
+      <h1 class="page-title display-1 text-uppercase fw-bold red-first">{{ page.title }}</h1>
+		</div>
+	</div>
+</section>
+
+<section id="about" class="about-section">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+		<div class="row gy-4 justify-content-center">
+			<div class="col-lg-3">
+				<div class="profil-item">
+					{% image page.image_profil original as img_profil %}
+					<div class="img-profil" style="background-image:url({{ img_profil.url }});">
+						<div class="profil-item-social">
+							<div class="profil-item-social-inner">
+								{% include "includes/social_media.html" %}
+							</div> <!-- /.social-buttons -->
+						</div> <!-- /.profil-item-social -->
+					</div>
+					<div class="profil-item-caption">
+						<p class="profil-item-title h5 mb-1"><span class="bg-black text-light px-2">Ludovic S.B</span></p>
+						<div class="profil-item-subtitle"><span class="bg-primary text-light px-1">Développeur web</span></div>
+					</div>
+				</div>
+			</div><!-- /.col -->
+			<div class="col-lg-8 content">
+				<div class="row">
+					<div class="fst-italic py-3">
+					{{ page.intro|richtext }}
+					</div>
+				</div>
+				<!-- /.row -->
+			
+				<div class="row">
+					<div class="col-lg-6">
+						<ul class="list-unstyled">
+							<li><i class="bi bi-globe cl-primary"></i> <strong>Site web:</strong> <span>ludo-boa.fr</span></li>
+							<li>
+								<i class="bi bi-telephone-fill cl-primary"></i> 
+								<strong>Téléphone:</strong> <span>{{ phone }}</span>
+							</li>
+							<li>
+								<i class="bi bi-house-fill cl-primary"></i> 
+								<strong>Ville:</strong> <span>{{ city }}</span>
+							</li>
+						</ul>
+					</div>
+					<div class="col-lg-6">
+						<ul class="list-unstyled">
+							<li>
+								<i class="bi bi-person-badge-fill cl-primary"></i> 
+								<strong>Age:</strong> 
+								<span>{{ age }}</span>
+							</li>
+							<li>
+								<i class="bi bi-mortarboard-fill cl-primary"></i>
+								<strong>Diplôme:</strong> <span>{{ degree|upper }}</span>
+							</li>
+							<li>
+								<i class="bi bi-envelope-fill cl-primary"></i> 
+								<strong>Email:</strong> <span>{{ email }}</span>
+							</li>
+						</ul>
+					</div>
+				</div><!-- /.row -->
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+    </div><!-- /.container -->
+</section>
+
+<section id="stats" class="stats-section my-5 py-5">
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+      <div class="row gy-4">
+
+        <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
+			<div class="stats-item d-flex flex-column justify-content-center align-items-center">
+				<span data-purecounter-start="0" data-purecounter-end="{{ exp }}" data-purecounter-duration="2" class="purecounter">{{ exp }}</span>
+				{% comment %} <hr class="hr-heading"> {% endcomment %}
+				<i class="bi bi-briefcase" data-aos="fade-up" data-aos-delay="100"></i>
+				<p class="h6">Années d'expérience</p>
+			</div>
+        </div><!-- /.col -->
+
+        <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
+			<div class="stats-item d-flex flex-column justify-content-center align-items-center">
+				<span data-purecounter-start="0" data-purecounter-end="{{ coffe_cups }}" data-purecounter-duration="2" class="purecounter">{{ coffe_cups }}</span>
+				{% comment %} <hr class="hr-heading"> {% endcomment %}
+				<i class="bi bi-cup-hot" data-aos="fade-up" data-aos-delay="200"></i>
+				<p class="h6">Tasses de café</p>
+			</div>
+        </div><!-- /.col -->
+
+        <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
+			<div class="stats-item d-flex flex-column justify-content-center align-items-center">
+				<span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="2" class="purecounter">3</span>
+				{% comment %} <hr class="hr-heading"> {% endcomment %}
+				<i class="bi bi-card-text" data-aos="fade-up" data-aos-delay="300"></i>
+				<p class="h6">Projets</p>
+			</div>
+        </div><!-- /.col -->
+
+        <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
+			<div class="stats-item d-flex flex-column justify-content-center align-items-center">
+				<span data-purecounter-start="0" data-purecounter-end="16200" data-purecounter-duration="2" class="purecounter">16200</span>
+				{% comment %} <hr class="hr-heading"> {% endcomment %}
+				<i class="bi bi-code-slash" data-aos="fade-up" data-aos-delay="400"></i>
+				<p class="h6">Lignes de code</p>
+          </div>
+        </div><!-- /.col -->
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+</section>
+
+<section id="skills" class="skills-section">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-3 skill-item d-flex flex-column justify-content-center align-items-center bg-primary text-white">
+				<h2 class="first-letter--bg-white first-letter--cl-red fs-1">Compétences</h2>
+				<p class="subtitle">Compétences et savoir-faire  <i class="bi bi-arrow-right"></i></p>
+			</div>
+			<div class="col-lg-9">
+				<div class="owl-carousel">
+					{% skills %}
+					<div class="owl-nav">
+						<button type="button" role="presentation" class="owl-prev"></button>
+						<button type="button" role="presentation" class="owl-next"></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="tools" class="tools-section bg-black text-light">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-4 d-flex flex-column justify-content-center align-items-center">
+				<h2 class="first-letter--bg-red first-letter--cl-white fs-1">Développement</h2>
+				<p class="subtitle">My Toolbox  <i class="bi bi-arrow-right"></i></p>
+			</div><!-- /.col-lg-4 -->
+			{% tools %}
+		</div><!-- /.row -->
+	</div><!-- /.container -->
+</section>
+
+<section id="interests" class="interests-section my-5 py-5">
+
+	<div class="container">
+		<div class="row mb-5">
+			<div class="d-flex flex-column justify-content-center align-items-center">
+				<h2 class="heading-title">Intérêts</h2>
+				<hr class="hr-heading">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-8 offset-2">
+				<div class="row">
+					{% interests %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>
+
+
+{% endblock content %}

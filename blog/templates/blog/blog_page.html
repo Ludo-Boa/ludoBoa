@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags wagtailsettings_tags %}
+
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block content %}
+{% get_settings %}
+{% image settings.base.ImageDefault.image original as img_default %}
+{% image page.hero_image original as hero_image %}
+<section class="hero-banner px-4 py-5 mb-5  position-relative">
+	<div class="hero-banner-img position-absolute top-0 bottom-0 start-0 end-0" style="background-image:url({% if page.hero_image %} {{ hero_image.url }} {% else %} {{ img_default.url }} {% endif %});" alt=""></div>
+	<div class="bg-black position-absolute top-0 bottom-0 start-0 end-0" style="--bs-bg-opacity: .7;"></div>
+	<div class="text-white position-relative my-5 py-5" data-aos="fade">
+        <div class="col-lg-10 mx-auto " data-aos="fade">
+            <h1 class="page-title display-3 text-uppercase fw-bold">{{ page.title }}</h1>
+		</div>
+	</div>
+</section>
+
+<!-- Blog Details Section -->
+<section id="blogDetails" class="blogDetails-section">
+
+    <div class="container">
+
+      <div class="row gy-4">
+
+        <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+            <div class="intro mt-5 mb-3">{{ page.intro|richtext }}</div>
+            {% if page.body%}
+				{% for block in page.body %}
+					{% if block.block_type == "heading_block" %}
+						{% include_block block %}					
+					{% endif %}
+					{% if block.block_type == "paragraph_block" %}
+						{% include_block block %}					
+					{% endif %}
+					{% if block.block_type == "image_block" %}
+						{% include_block block %}					
+					{% endif %}
+					{% if block.block_type == "block_quote" %}
+						{% include_block block %}					
+					{% endif %}
+					{% if block.block_type == "embed_block" %}
+						{% include_block block %}					
+					{% endif %}
+					{% if block.block_type == "code_block" %}
+						{% include_block block %}					
+					{% endif %}
+				{% endfor %}
+			{% endif %}   
+        </div>
+
+        <aside class="col-lg-4 position-relative">
+            <div class=" py-5">
+                <a class="icon-link icon-link-hover" href="{{ page.get_parent.url }}">
+                    Retour au blog
+                    <i class="bi bi-arrow-return-right"></i>
+                </a>
+
+                {% with authors=page.authors.all %}
+                    {% if authors %}
+                    <div class="mt-4">
+                        <h3 class="aside-heading-title">Publication</h3>
+                        <div class="blog-author-info">
+                            <h4 class="blog-author-name"><small>Par : </small> 
+                            {% for author in authors %}
+                            {{ author.name }}
+                            {% endfor %}
+                            </h4>
+                            <div class="blog-date">le {{ page.date }}</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endwith %}
+
+                <div class="mt-4">
+                    <h3 class="aside-heading-title">Catégorie(s)</h3>
+                    <div>
+                    {% with tags=page.tags.all %}
+                        {% if tags %}
+                            <div class="tags">
+                                <ul class="list-unstyled">
+                                {% for tag in tags %}
+                                    <li>
+                                        <a href="{% slugurl 'tags' %}?tag={{ tag }}" class="text-capitalize"># {{ tag }}</a>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                    </div>
+                </div>
+
+                {% comment %} <div class="services-list">
+                    {% if page.body%}
+                        {% for block in page.body %}
+                            {% if block.block_type == "heading_block" %}
+                                <a href="#heading_id_{{ block.id }}">{{ block.value.heading_text }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div> {% endcomment %}
+
+                {% comment %} {% with authors=page.authors.all %}
+                    {% if authors %}
+                        <ul>
+                            Publié par :
+                            {% for author in authors %}
+                                <li style="display: inline">
+                                    {{ author.name }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %} {% endcomment %}
+
+                
+            </div>
+        </aside>
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+</section><!-- /Blog Details Section -->
+
+{% endblock content %}

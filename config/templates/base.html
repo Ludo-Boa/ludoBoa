@@ -1,0 +1,105 @@
+{% load static wagtailcore_tags wagtailimages_tags wagtailuserbar %}
+
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}
+            {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+            {% wagtail_site as current_site %}
+            {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+            {% endblock %}
+        </title>
+        {% if page.search_description %}
+        <meta name="description" content="{{ page.search_description }}" />
+        {% endif %}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {# Force all links in the live preview panel to be opened in a new tab #}
+        {% if request.in_preview_panel %}
+        <base target="_blank">
+        {% endif %}
+
+        {% comment %} <meta name="color-scheme" content="light dark"> {% endcomment %}
+        
+        {% image page.hero_image original as hero_image %}
+        {% image settings.base.ImageDefault.image original as img_default %}
+        {% wagtail_site as current_site %}
+        <!-- Facebook Meta Tags -->
+        <meta property="og:url" content="{% fullpageurl page %}">
+        <meta property="og:title" content="{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}{% if current_site and current_site.site_name %} - {{ current_site.site_name }}{% endif %}">
+        <meta property="og:description" content="{% if page.search_description %}{{ page.search_description }}{% endif %}">
+        <meta property="og:image" content="{% if page.hero_image %}{{ hero_image.url }}{% else %}{{ img_default.url }}{% endif %}">
+
+        <!-- Twitter Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="twitter:domain" content="{% if current_site and current_site.site_name %}{{ current_site.site_name }}{% endif %}">
+        <meta property="twitter:url" content="{% fullpageurl page %}">
+        <meta name="twitter:title" content="{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}{% if current_site and current_site.site_name %} - {{ current_site.site_name }}{% endif %}">
+        <meta name="twitter:description" content="{% if page.search_description %}{{ page.search_description }}{% endif %}">
+        <meta name="twitter:image" content="{% if page.hero_image %}{{ hero_image.url }}{% else %}{{ img_default.url }}{% endif %}">
+
+        <!-- Meta Tags Generated via dnschecker.org-->
+
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Dr+Sugiyama&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+
+        <!-- Vendor CSS Files -->
+        <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+        <link href="{% static "vendor/devicons/devicon.min.css" %}" rel="stylesheet">
+        <link href="{% static "vendor/aos/aos.css" %}" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+        {# Global stylesheets #}
+        {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/config.css' %}"> {% endcomment %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+
+        {% block extra_css %}
+        {# Override this in templates to add extra stylesheets #}
+        {% endblock %}
+    </head>
+
+    <body class="{% block body_class %}{% endblock %}">
+
+        <div class="border-top"></div>
+        <div class="border-bottom"></div>
+        <div class="border-left"></div>
+        <div class="border-right"></div>
+        
+
+        {% include "includes/header.html" %}
+
+        <main class="main">
+        {% block content %}{% endblock %}
+        </main>
+
+        
+
+
+        <!-- Vendor JS Files -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+        <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        {% comment %} <script src="{% static 'vendor/typed.js/typed.umd.js' %}"></script> {% endcomment %}
+        <script src="{% static "vendor/aos/aos.js" %}"></script>
+        <script src="{% static "vendor/purecounter/purecounter_vanilla.js" %}"></script>
+        <script src="{% static "vendor/imagesloaded/imagesloaded.pkgd.min.js" %}"></script>
+        <script src="{% static "vendor/isotope-layout/isotope.pkgd.min.js" %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+        {# Global javascript #}
+        <script type="text/javascript" src="{% static 'js/config.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+        
+
+        {% block extra_js %}
+        {# Override this in templates to add extra javascript #}
+        {% endblock %}
+    </body>
+</html>

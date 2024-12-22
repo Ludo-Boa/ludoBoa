@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+{% comment %}
+Delete the line below if you're just getting started and want to remove the welcome screen!
+{% endcomment %}
+{% comment %} <link rel="stylesheet" href="{% static 'css/welcome_page.css' %}"> {% endcomment %}
+{% endblock extra_css %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section id="hero" class="hero section dark-background">
+    {% image page.hero_image original as hero_image %}
+    <img src="{{ hero_image.url }}" alt="Image de fond">
+
+    <div class="container text-white" data-aos="zoom-out" data-aos-delay="100">
+        <h1 class="intro-title">Ludovic <span>S.B</span></h1>
+        <p class="intro-subtitle">{{ page.hero_text }}</p>
+        
+        {% if page.hero_cta_link %}
+            <a href="{% pageurl page.hero_cta_link %}">
+                {% firstof page.hero_cta page.hero_cta_link.title %}
+            </a>
+        {% endif %}
+        {{ page.body|richtext }}
+        <div class="homepage-social">
+            {% include "includes/social_media.html" %}
+        </div>
+    </div>
+
+</section><!-- /Hero Section -->
+{% endblock %}

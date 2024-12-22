@@ -1,0 +1,26 @@
+{% load static wagtailcore_tags navigation_tags wagtailuserbar %}
+
+
+
+<header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+        {% get_site_root as site_root %}
+        <a href="{% pageurl site_root %}" class="logo d-flex align-items-center">
+            
+            <img src="{% static "images/LSB_logo.png" %}" alt=""> 
+            
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+            <ul>
+                <li><a href="{% pageurl site_root %}" class="active">Accueil</a></li>
+                {% for menuitem in site_root.get_children.live.in_menu %}
+                    <li><a href="{% pageurl menuitem %}">{{ menuitem.title }}</a></li>
+                {% endfor %}
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+    </div>
+    {% wagtailuserbar "bottom-left" %}
+</header>

@@ -1,0 +1,45 @@
+{% load static wagtailcore_tags navigation_tags menus_tags wagtailuserbar %}
+
+{% get_menu "main" as navigation %}
+
+<header class="header fixed-top">
+    <div class="container-fluid d-flex">
+        {% get_site_root as site_root %}
+        <a href="{% pageurl site_root %}" class="logo d-flex align-items-center">
+            <img src="{% static "images/LSB_logo.png" %}" alt=""> 
+			<span class="visually-hidden">LSB</span>
+        </a>
+        <div class="ms-auto">
+			<button class="btn btn-light border-0 rounded-0 btn-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+				<i class="bi bi-list"></i> 
+				<span class="visually-hidden">MENU</span>
+			</button>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+		<div class="offcanvas-header">
+			<p class="offcanvas-title h5 m-0 text-secondary" id="offcanvasExampleLabel">MENU</p>
+			<button type="button" class="close-btn" data-bs-dismiss="offcanvas" aria-label="Close">
+				<i class="bi bi-x-lg"></i>
+			</button>
+		</div>
+		<div class="offcanvas-body">
+			<nav id="navmenu" class="navmenu my-2">
+				<ul class="list-unstyled">
+					<li><a href="{% pageurl site_root %}" class="active">Accueil</a></li>
+					{% for item in navigation.menu_items.all %}
+					<li><a href="{{ item.link }}" {% if item.open_in_new_tab %} target="_blank"{% endif %}>{{ item.title }}</a></li>
+					{% endfor %}
+					<li class="menu-separator"></li>
+				</ul>
+			</nav>
+			<div class="social-icons px-5">
+				{% include "includes/social_media.html" %}
+			</div>
+		</div>
+    </div>
+
+    
+    {% wagtailuserbar "bottom-right" %}
+</header>

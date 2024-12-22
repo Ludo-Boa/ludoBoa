@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags wagtailsettings_tags %}
+
+{% block body_class %}template-portfolioindexpage{% endblock %}
+
+
+{% block content %}
+{% get_settings %}
+{% image settings.base.ImageDefault.image original as img_default %}
+{% image page.hero_image original as hero_image %}
+<section class="hero-banner px-4 py-5 mb-5 text-center position-relative">
+	<div class="hero-banner-img position-absolute top-0 bottom-0 start-0 end-0" style="background-image:url({% if page.hero_image %} {{ hero_image.url }} {% else %} {{ img_default.url }} {% endif %});" alt=""></div>
+	<div class="bg-black position-absolute top-0 bottom-0 start-0 end-0" style="--bs-bg-opacity: .7;"></div>
+	<div class="text-white position-relative my-5 py-5" data-aos="fade">
+        <div class="col-lg-6 mx-auto">
+            <h1 class="page-title display-1 text-uppercase fw-bold red-first">{{ page.title }}</h1>
+		</div>
+	</div>
+</section>
+
+<!-- Portfolio Section -->
+<section id="portfolio" class="portfolio-section my-5 py-5">
+	<div class="container-fluid">
+		<div class="row">
+			<ul class="portfolio-filters list-unstyled list-inline my-5" data-aos="fade-up" data-aos-delay="100">
+				<li class="list-inline-item">Filter :</li>
+				<li data-filter="*" class="filter filter-active list-inline-item">Show All</li>
+				{% for category in project_categories %}
+					<li data-filter=".filter-{{ category.name }}" class="filter list-inline-item">{{ category.name }}</li>
+				{% endfor %}
+			</ul>
+			<div class="row portfolio-gallery project-counter" data-aos="fade-up" data-aos-delay="300">
+				{% for project in project_list %}
+					{% with project=project.specific %}
+					<div class="col-sm-6 col-lg-4 mb-2 portfolio-item filter-{{ project.category.name }}">
+						<div class="">
+							<div class="portfolio-content">
+								{% image project.image original as project_img %}
+								<img src="{{ project_img.url }}" class="img-fluid" alt="">
+								<div class="portfolio-info">
+									<h2 class="h4">{{ project.title }}</h2>
+									
+									<a href="{% pageurl project %}" title="Plus d'info." data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+									<a href="{{ project.link }}" title="Voir : {{ project.title }}" class="details-link" target="_blank"><i class="bi bi-link-45deg"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endwith %}
+				{% endfor %}
+			</div><!-- /.row portfolio-gallery -->
+		</div><!-- /.row -->
+	</div><!-- /.container -->
+</section>
+<!-- /.Portfolio Section -->
+
+{% endblock content %}
+
+{% block extra_js %}
+
+<script>
+	$(function(){
+		 
+		var $grid = $('.portfolio-gallery').isotope({
+			// options
+			itemSelector: '.portfolio-item',
+			layoutMode: 'masonry'
+		});
+
+		$(".portfolio-filters").on("click", "li", function () {
+			var filterValue = $(this).attr("data-filter");
+			$grid.isotope({ filter: filterValue });
+		});
+		$(".portfolio-filters").on("click", "li", function () {
+			$(this).addClass("filter-active").siblings().removeClass("filter-active");
+		});
+	});
+</script>
+{% endblock extra_js %}

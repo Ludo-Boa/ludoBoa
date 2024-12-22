@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-portfoliopage{% endblock %}
+
+{% block content %}
+<section class="project-detail my-5 py-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-10 mx-auto">
+				{% image page.image original as page_img %}
+				<img src="{{ page_img.url }}" class="img-fluid w-100 " alt="{{ page_img.alt }}">
+			</div>
+			<!-- /.col-lg-10 -->
+			 <div class="col-lg-10 mx-auto my-5">
+				<div class="row">
+					<div class="col-lg-8">
+						<h1 class="page-title">{{ page.title }}</h1>
+						<div class="project-description">
+							{{ page.description|richtext }}
+						</div>
+					</div>
+					<!-- /.col-lg-7 -->
+					<div class="col-lg-4">
+						<div class="mb-5">
+							<a class="icon-link icon-link-hover" href="{{ page.get_parent.url }}">
+								Retour au portfolio
+								<i class="bi bi-arrow-return-right"></i>
+							</a>
+						</div>
+						<div class="project-info">
+							<ul>
+								{% if page.category %}
+								<li><strong>Catégorie</strong> : {{ page.category }}</li>
+								{% endif %}
+								{% if page.created %}
+								<li><strong>Date du projet</strong> : {{ page.created|date:"Y" }}</li>
+								{% endif %}
+							</ul>
+							{% if page.link %}
+							<a href="{{ page.link }}" class="btn btn-danger btn-lg rounded-pill text-uppercase" target="_blank" role="button">Voir le projet</a>
+							{% endif %}
+						</div><!-- /.portfolio-info -->
+					</div>
+					<!-- /.col-lg-3 -->
+				 </div>
+				 <!-- /.row -->
+			 </div>
+		</div>
+		<!-- /.row -->
+		 
+	</div>
+	<!-- /.container -->
+</section>
+
+
+
+    {% comment %} <section id="portfolio-details" class="portfolio-details-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 mx-auto">
+					{% image page.image original as page_img %}
+                    <img src="{{ page_img.url }}" class="img-fluid w-100" alt="{{ page_img.alt }}">
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-7">
+					<h1 class="page-title">{{ page.title }}</h1>
+					<div class="portfolio-description">
+						{{ page.description|richtext }}
+					</div>
+				</div><!-- /.col-lg-7 -->
+				<div class="col-lg-3">
+					
+				</div><!-- /.col-lg-3 -->
+			</div><!-- /.row -->
+		</div><!-- /.container -->
+  
+    </section> {% endcomment %}
+
+    
+
+
+{% endblock %}

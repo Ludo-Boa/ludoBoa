@@ -1,0 +1,23 @@
+<div class="resume-item mb-4 p-4 border shadow" data-aos="fade-up" data-aos-delay="100">
+    <h3 class="h5 item-title mb-0 px-2 py-1 bg-{{ self.bg_color }}" data-aos="fade-left" data-aos-delay="300">{{ self.title }}</h3>
+    <div data-aos="fade-right" data-aos-delay="500">
+        <small class="item-date bg-black text-light px-2">
+            <em>{{ self.date_start|date:"N Y" }} {% if self.date_end %}- {{ self.date_end|date:"N Y" }}{% endif %}</em>
+        </small>
+    </div>
+    {% if self.school or self.city %}
+    <p class="mt-3">
+       <i class="bi bi-geo-alt"></i> 
+       {% if self.school %}{{ self.school }}{% endif %} 
+       {{ self.city|yesno:"-," }}
+       {% if self.city %}{{ self.city }}{% endif %}
+    </p>
+    {% endif %} 
+
+    
+    
+
+    {% if self.description %}
+    <div>{{ self.description }}</div>
+    {% endif %}
+</div><!-- End Resume Item -->

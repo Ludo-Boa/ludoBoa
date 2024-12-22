@@ -1,0 +1,17 @@
+{% comment %}
+    Content is coming from the StandardBlock StreamField
+    class within `blocks.py`
+{% endcomment %}
+{% with block.id|stringformat:"s" as block_id %}
+    {% comment %} {{ block_id }} {% endcomment %}
+    {% if self.size == 'h2' %}
+        <h2 id="heading_id_{{ block_id }}">{{ self.heading_text }}</h2>
+    
+    {% elif self.size == 'h3' %}
+        <h3 id="heading_id_{{ block_id }}">{{ self.heading_text }}</h3>
+    
+    {% elif self.size == 'h4' %}
+        <h4 id="heading_id_{{ block_id }}">{{ self.heading_text }}</h4>
+    
+    {% endif %}
+{% endwith %}
