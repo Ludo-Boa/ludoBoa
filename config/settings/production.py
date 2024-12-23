@@ -1,8 +1,5 @@
 from .base import *
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
-
 # Ensure that the session cookie is only sent by browsers under an HTTPS connection.
 # https://docs.djangoproject.com/en/stable/ref/settings/#session-cookie-secure
 SESSION_COOKIE_SECURE = True
@@ -23,6 +20,8 @@ EMAIL_PORT = env('EMAIL_PORT')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+
+
 # CACHES = {
 #     "default": {
 #         "BACKEND": "django.core.cache.backends.redis.RedisCache",
