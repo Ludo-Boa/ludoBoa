@@ -32,7 +32,7 @@
         <meta property="og:url" content="{% fullpageurl page %}">
         <meta property="og:title" content="{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}{% if current_site and current_site.site_name %} - {{ current_site.site_name }}{% endif %}">
         <meta property="og:description" content="{% if page.search_description %}{{ page.search_description }}{% endif %}">
-        <meta property="og:image" content="{% if page.hero_image %}{{ hero_image.url }}{% else %}{{ img_default.url }}{% endif %}">
+        <meta property="og:image" content="{{ current_site.root_url }}{% if page.hero_image %}{{ hero_image.url }}{% else %}{{ img_default.url }}{% endif %}">
 
         <!-- Twitter Meta Tags -->
         <meta name="twitter:card" content="summary_large_image">
@@ -40,7 +40,7 @@
         <meta property="twitter:url" content="{% fullpageurl page %}">
         <meta name="twitter:title" content="{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}{% if current_site and current_site.site_name %} - {{ current_site.site_name }}{% endif %}">
         <meta name="twitter:description" content="{% if page.search_description %}{{ page.search_description }}{% endif %}">
-        <meta name="twitter:image" content="{% if page.hero_image %}{{ hero_image.url }}{% else %}{{ img_default.url }}{% endif %}">
+        <meta name="twitter:image" content="{{ current_site.root_url }}{% if page.hero_image %}{{ hero_image.url }}{% else %}{{ img_default.url }}{% endif %}">
 
         <!-- Meta Tags Generated via dnschecker.org-->
 
