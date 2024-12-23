@@ -30,7 +30,13 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env.dev'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
+if "DJANGO_SECRET_KEY" in os.environ:
+    SECRET_KEY = env("DJANGO_SECRET_KEY")
 
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[])
+
+if "CSRF_TRUSTED_ORIGINS" in os.environ:
+    CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
 
 # Application definition
 
@@ -109,12 +115,13 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-#     }
-# }
+DATABASES = {
+    'default': dj_database_url.config(
+        default=env('DJANGO_DATABASE_URL'),
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
+}
 
 
 # Password validation
@@ -160,10 +167,16 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, "static"),
 ]
 
-STATIC_ROOT = env('STATIC_ROOT')
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+if "DJANGO_STATIC_ROOT" in os.environ:
+    STATIC_ROOT = env('DJANGO_STATIC_ROOT')
+
 STATIC_URL = "/static/"
 
-MEDIA_ROOT = env('MEDIA_ROOT')
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+if "DJANGO_MEDIA_ROOT" in os.environ:
+    MEDIA_ROOT = env('DJANGO_MEDIA_ROOT')
+
 MEDIA_URL = "/media/"
 
 # Default storage settings, with the staticfiles storage updated.
@@ -185,6 +198,12 @@ STORAGES = {
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "ludo-boa.fr"
+
+# Base URL to use when referring to full URLs within the Wagtail admin backend -
+# e.g. in notification emails. Don't include '/admin' or a trailing slash
+WAGTAILADMIN_BASE_URL = "127.0.0.1"
+if "WAGTAILADMIN_BASE_URL" in os.environ:
+    WAGTAILADMIN_BASE_URL = env('WAGTAILADMIN_BASE_URL')
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html

@@ -15,19 +15,6 @@ CSRF_COOKIE_SECURE = True
 # https://docs.wagtail.io/en/v2.13/reference/settings.html#redirects
 WAGTAIL_REDIRECTS_FILE_STORAGE = "cache"
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
-
-# SECURITY WARNING: define the correct hosts in production!
-ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
-
-DATABASES = {
-    'default': dj_database_url.config(
-        default=env('DATABASE_URL'),
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
-}
 
 
 EMAIL_BACKEND = env('EMAIL_BACKEND')
