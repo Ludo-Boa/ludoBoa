@@ -31,6 +31,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env.dev'))
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -159,10 +160,10 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, "static"),
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = env('STATIC_ROOT')
 STATIC_URL = "/static/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = env('MEDIA_ROOT')
 MEDIA_URL = "/media/"
 
 # Default storage settings, with the staticfiles storage updated.
