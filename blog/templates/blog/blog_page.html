@@ -47,6 +47,9 @@
 					{% if block.block_type == "code_block" %}
 						{% include_block block %}					
 					{% endif %}
+                    {% if block.block_type == "table_block" %}
+                        {% include_block block %}
+                    {% endif %}
 				{% endfor %}
 			{% endif %}   
         </div>
@@ -61,13 +64,13 @@
                 {% with authors=page.authors.all %}
                     {% if authors %}
                     <div class="mt-4">
-                        <h3 class="aside-heading-title">Publication</h3>
+                        <h2 class="aside-heading-title h3">Publication</h2>
                         <div class="blog-author-info">
-                            <h4 class="blog-author-name"><small>Par : </small> 
+                            <h3 class="blog-author-name h5"><small>Par : </small> 
                             {% for author in authors %}
                             {{ author.name }}
                             {% endfor %}
-                            </h4>
+                            </h3>
                             <div class="blog-date">le {{ page.date }}</div>
                         </div>
                     </div>
@@ -75,7 +78,7 @@
                 {% endwith %}
 
                 <div class="mt-4">
-                    <h3 class="aside-heading-title">Catégorie(s)</h3>
+                    <h2 class="aside-heading-title h3">Catégorie(s)</h2>
                     <div>
                     {% with tags=page.tags.all %}
                         {% if tags %}

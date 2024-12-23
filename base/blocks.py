@@ -11,6 +11,7 @@ from wagtail.blocks import (
 from wagtail.embeds.blocks import EmbedBlock
 from wagtailcodeblock.blocks import CodeBlock
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.contrib.table_block.blocks import TableBlock
 
 
 class ImageBlock(StructBlock):
@@ -81,6 +82,7 @@ class BaseStreamBlock(StreamBlock):
         template="blocks/embed_block.html",
         
     )
+    table_block = TableBlock()
     code_block = CodeBlock(label='Code')
 
 

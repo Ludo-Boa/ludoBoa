@@ -17,4 +17,6 @@ $(document).ready(function(){
             }
         }
     });
+
+    $('#blogDetails table').addClass('table table-hover table-bordered');
 });
