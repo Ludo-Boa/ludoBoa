@@ -1,9 +1,9 @@
 {% load static wagtailimages_tags %}
 {% for interest in interests %}
-    <div class="col-lg-4 col-md-4 interest-item" data-aos="fade-up" data-aos-delay="{{ interest.id }}00">
+    <li class="interest-item" data-aos="fade-up" data-aos-delay="{{ interest.id }}00">
         <div class="">
           {% image interest.image original as img %}
           <img src="{{ img.url }}" alt="{{ interest.title }}">
         </div>
-    </div><!-- End Feature Item -->
+    </li><!-- End Feature Item -->
 {% endfor %}

@@ -68,10 +68,10 @@
 
     <body class="{% block body_class %}{% endblock %}">
 
-        <div class="border-top"></div>
+        {% comment %} <div class="border-top"></div>
         <div class="border-bottom"></div>
         <div class="border-left"></div>
-        <div class="border-right"></div>
+        <div class="border-right"></div> {% endcomment %}
         
 
         {% include "includes/header.html" %}

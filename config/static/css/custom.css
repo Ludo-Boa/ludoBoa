@@ -235,7 +235,7 @@ ul {
  *  Header
 /* ------------------------------------ */
 .header {
-    margin-top: 15px;
+    border-top: 15px solid #fff
 }
 .header .container-fluid {
 	padding-left: 15px;
@@ -245,7 +245,6 @@ ul {
     display: block;
     max-height: 68px;
     background: #fff;
-    padding: 0px 15px 15px 0px;
 }
 .navmenu ul {
     font-family: 'Oswald', sans-serif;
@@ -253,6 +252,7 @@ ul {
 .header  .btn-menu {
     width: 60px;
     height: 60px;
+    background-color: #fff;
 }
 .header .btn-menu i {
     color: var(--lsb-primary-color);
@@ -893,6 +893,8 @@ span.purecounter {
     border-left: 1px solid transparent;
     border-bottom: 1px solid transparent;
     border-color: rgba(158, 158, 158, 0.23);
+    width: 33%;
+    float: left;
 }
 .interest-item:first-child {
     border-left: 1px solid transparent;

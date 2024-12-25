@@ -1,7 +1,7 @@
 {% load static wagtailimages_tags %}
 {% for tool in tools %}
 {% image tool.image original as img %}
-    <div class="col-lg-4 tools-item">
+    <div class="col-lg-4 col-sm-6 tools-item">
             <div class="tools-item--img">
                 {% if tool.image %}
                 <img src="{{ img.url }}" alt="{{ img.alt }}">
